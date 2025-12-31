@@ -1,65 +1,151 @@
-import Image from "next/image";
+'use client';
+import { useState } from 'react';
 
-export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
+export default function HomePage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    age: '',
+    phone: ''
+  });
+  const [step, setStep] = useState(1);
+  const [patientNumber, setPatientNumber] = useState(null);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // حفظ بيانات المريض في localStorage
+    const clinicData = JSON.parse(localStorage.getItem('clinicData') || '{"patients": []}');
+    
+    const newPatient = {
+      id: Date.now().toString(),
+      name: formData.name,
+      age: formData.age,
+      phone: formData.phone,
+      status: 'registered', // حالة المريض بعد التسجيل
+      registrationTime: new Date().toLocaleString('ar-EG')
+    };
+    
+    clinicData.patients.push(newPatient);
+    localStorage.setItem('clinicData', JSON.stringify(clinicData));
+    
+    // توليد رقم عشوائي للمريض
+    const randomNumber = Math.floor(Math.random() * 50) + 1;
+    setPatientNumber(randomNumber);
+    setStep(2);
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      age: '',
+      phone: ''
+    });
+    setStep(1);
+    setPatientNumber(null);
+  };
+
+  if (step === 1) {
+    return (
+      <div className="container">
+        <div className="card" style={{ maxWidth: '500px', margin: '50px auto' }}>
+          <h1 style={{ textAlign: 'center', marginBottom: '30px', color: '#333' }}>
+            مستشفى الحياة
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>تسجيل بيانات المريض</h2>
+          
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>الاسم بالكامل *</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                required
+                placeholder="أدخل الاسم بالكامل"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>العمر *</label>
+              <input
+                type="number"
+                name="age"
+                value={formData.age}
+                onChange={handleInputChange}
+                required
+                placeholder="أدخل العمر"
+                min="1"
+                max="120"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>رقم الهاتف *</label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
+                required
+                placeholder="أدخل رقم الهاتف"
+              />
+            </div>
+            
+            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+              تسجيل البيانات والمتابعة
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container">
+      <div className="card" style={{ maxWidth: '500px', margin: '50px auto', textAlign: 'center' }}>
+        <div style={{ color: '#28a745', fontSize: '80px', marginBottom: '20px' }}>✓</div>
+        <h1 style={{ color: '#28a745', marginBottom: '20px' }}>تم التسجيل بنجاح</h1>
+        <p style={{ marginBottom: '20px', fontSize: '18px' }}>شكراً لك {formData.name}</p>
+        <p style={{ marginBottom: '20px', fontSize: '16px', color: '#666' }}>
+          تم تسجيل بياناتك بنجاح في نظام العيادة
+        </p>
+        <div style={{ 
+          backgroundColor: '#e7f3ff', 
+          padding: '20px', 
+          borderRadius: '10px',
+          margin: '20px 0',
+          border: '2px solid #007bff'
+        }}>
+          <p style={{ marginBottom: '10px', fontSize: '16px' }}>رقمك في قائمة الانتظار:</p>
+          <p style={{ fontSize: '32px', fontWeight: 'bold', color: '#007bff' }}>
+            #{patientNumber}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        <p style={{ marginBottom: '20px', fontSize: '14px', color: '#666' }}>
+          يرجى التوجه إلى قسم الاستقبال وتقديم هذا الرقم
+        </p>
+        <button 
+          className="btn btn-primary"
+          onClick={resetForm}
+          style={{ marginRight: '10px' }}
+        >
+          تسجيل مريض جديد
+        </button>
+        <button 
+          className="btn btn-success"
+          onClick={() => window.location.href = '/reception'}
+        >
+          الانتقال إلى الاستقبال
+        </button>
+      </div>
     </div>
   );
 }
