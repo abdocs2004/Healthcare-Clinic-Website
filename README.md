@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Health Care Clinic Preview](./public/assets/clinic-logo.png)
 
-## Getting Started
+A modern and responsive website built for **Health Care Clinic**, a medical center specializing in patient care and health services.  
+The website showcases the clinic’s profile, services, doctors, and contact information in a professional interface.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌐 Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project was developed using **Next.js** with the App Router architecture to provide a fast, SEO-friendly, and modular experience.  
+The design follows a clean layout that emphasizes accessibility and clarity for patients.  
+All content is structured into separate reusable sections, making it easy to manage or expand in the future.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Technologies Used
 
-## Learn More
+- **Next.js 14** → Framework for React with server-side rendering and routing  
+- **React.js** → Component-based UI library  
+- **Tailwind CSS** → Utility-first CSS framework for modern and responsive design  
+- **React Icons** → For elegant and lightweight icons  
+- **Google Maps Embed** → Integrated clinic location map  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✨ Key Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 🌍 **Multi-language support** (Arabic & English) with RTL layout for Arabic  
+- 📱 **Responsive design** for all devices  
+- ⚡ **Optimized performance** using Next.js features  
+- 🧩 **Modular component structure** (sections like doctors, services, contact)  
+- 📍 **Embedded Google Maps** for easy patient navigation  
+- 🎨 **Clean and professional UI** with modern typography and colors  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📂 Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
