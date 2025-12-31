@@ -1,4 +1,4 @@
-![Health Care Clinic Preview](./public/assets/clinic-logo.png)
+![Health Care Clinic Preview](./view.png)
 
 A modern and responsive website built for **Health Care Clinic**, a medical center specializing in patient care and health services.  
 The website showcases the clinic’s profile, services, doctors, and contact information in a professional interface.
